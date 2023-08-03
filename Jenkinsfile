@@ -7,6 +7,17 @@ pipeline {
     DOCKERHUB_CREDENTIALS = credentials('dockerhub')
   }
   stages {
+  		stage('Test') {
+      steps {
+        //sh(script: './mvnw --batch-mode -Dmaven.test.failure.ignore=true test')
+            echo 'Testing'
+      }
+    }
+    stage('Package') {
+      steps {
+        sh(script: './mvnw --batch-mode package -DskipTests')
+      }
+    }
     stage('Build') {
       steps {
         sh 'docker build -t afgates75/spring-petclinic-docker2 .'
@@ -26,6 +37,7 @@ pipeline {
   post {
     always {
       sh 'docker logout'
+      junit(testResults: 'target/surefire-reports/*.xml', allowEmptyResults : true
     }
   }
 }
