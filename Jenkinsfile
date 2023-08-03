@@ -9,8 +9,8 @@ pipeline {
   stages {
   		stage('Test') {
       				steps {
-        					//sh(script: './mvnw --batch-mode -Dmaven.test.failure.ignore=true test')
-           					 echo 'Testing'
+        					sh(script: './mvnw --batch-mode -Dmaven.test.failure.ignore=true test')
+           					// echo 'Testing'
       					}
    						}
    		 stage('Package') {
@@ -23,12 +23,12 @@ pipeline {
         sh 'docker build -t afgates75/spring-petclinic-docker2 .'
       }
     }
-    stage('Login') {
+    stage('Login Docker Hub') {
       steps {
         sh 'echo $DOCKERHUB_CREDENTIALS | docker login -u afgates75 --password-stdin'
       }
     }
-    stage('Push') {
+    stage('Push Docker Hub') {
       steps {
         sh 'docker push afgates75/spring-petclinic-docker2'
       }
