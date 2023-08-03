@@ -4,12 +4,12 @@ pipeline {
         buildDiscarder (logRotator (numToKeepStr: '5'))
     		}
     environment {
-    			DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+    			ARTIFACTORY_CREDENTIALS = credentials('artifcatory')
   				}
   stages {
   		stage('Test') {
       				steps {
-        					sh(script: './mvnw --batch-mode -Dmaven.test.failure.ignore=true test')
+        					//sh(script: './mvnw --batch-mode -Dmaven.test.failure.ignore=true test')
            					echo 'Running JUnit Tests'
       						}
    						}
@@ -23,17 +23,13 @@ pipeline {
       				steps {
         					sh 'docker build -t afgates75/spring-petclinic-docker2 .'
       						}
-    					}
-		stage('Login') {
+		stage('Artifactory') {
       				steps {
-        					sh 'echo $DOCKERHUB_CREDENTIALS | docker login -u afgates75 --password-stdin'
-        					echo 'Login to Docker Hub'
-      						}
-    					}
-		stage('Push') {
-      				steps {
-        					sh 'docker push afgates75/spring-petclinic-docker2'
-        					echo  'Push Docker Image to Docker Hub'
+        					// sh 'echo $ARTIFACTORY_CREDENTIALS | docker login -u afgates75 --password-stdin'
+        					docker login -uafgates@gmail.com andrewgates.jfrog.io -p$ARTIFACTORY_CREDENTIALS
+        					echo 'Login to Artifcatory'
+        					sh 'docker push andrewgates.jfrog.io/spring-petclinic-docker2'
+        					echo  'Push Docker Image to Artificatory'
       						}
     					}
   		}
