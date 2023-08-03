@@ -30,7 +30,7 @@ pipeline {
     					}
     	stage('Build') {
       				steps {
-        					jf 'docker build "$DOCKER_IMAGE_NAME"
+        					jf 'docker build $DOCKER_IMAGE_NAME'
         					//sh 'docker build -t "$DOCKER_IMAGE_NAME" .'
       						}
     					}
