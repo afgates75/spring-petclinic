@@ -1,16 +1,12 @@
-#!groovy
 pipeline {
-	agent none
-  stages {
-  	stage('Maven Install') {
-    	agent {
-      	docker {
-        	image 'maven:3.9.3'
-        }
-      }
-      steps {
-      	sh 'mvn clean install'
-      }
+    agent {
+        docker { image 'node:18.16.0-alpine' }
     }
-  }
+    stages {
+        stage('Test') {
+            steps {
+                sh 'node --version'
+            }
+        }
+    }
 }
