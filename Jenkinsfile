@@ -33,7 +33,7 @@ pipeline {
     					}
 		stage('Push') {
       				steps {
-        					sh 'docker push afgates75/spring-petclinic-docker2'
+        					sh 'docker push andrewgates.jfrog.io/spring-petclinic-docker/spring-petclinic-docker:1.0.0'
         					echo  'Push Docker Image to Artifactory'
       						}
     					}
