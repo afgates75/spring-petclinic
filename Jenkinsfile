@@ -21,7 +21,7 @@ pipeline {
     					}
     	stage('Build') {
       				steps {
-        					sh 'docker build -t afgates75/spring-petclinic-docker2 .'
+        					sh 'docker build -t andrewgates.jfrog.io/spring-petclinic-docker/spring-petclinic .'
       						}
     					}
 		stage('Artifactory') {
@@ -33,7 +33,8 @@ pipeline {
     					}
 		stage('Push') {
       				steps {
-        					sh 'docker push andrewgates.jfrog.io/spring-petclinic-docker/spring-petclinic-docker:1.0.0'
+        					sh 'docker tag andrewgates.jfrog.io/spring-petclinic-docker/spring-petclinic andrewgates.jfrog.io/spring-petclinic-docker/spring-petclinic:1.0.0
+        					sh 'docker push andrewgates.jfrog.io/spring-petclinic-docker/spring-petclinic:1.0.0'
         					echo  'Push Docker Image to Artifactory'
       						}
     					}
