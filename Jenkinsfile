@@ -4,6 +4,7 @@ pipeline {
         buildDiscarder (logRotator (numToKeepStr: '5'))
     		}
     environment {
+    			//DOCKERHUB_CREDENTIALS = credentials('dockerhub')
     			ARTIFACTORY_CREDENTIALS = credentials('artifcatory')
   				}
   stages {
@@ -25,9 +26,12 @@ pipeline {
       						}
 		stage('Artifactory') {
       				steps {
-        					// sh 'echo $ARTIFACTORY_CREDENTIALS | docker login -u afgates75 --password-stdin'
+        					// sh 'echo $DOCKERHUB_CREDENTIALS | docker login -u afgates75 --password-stdin'
         					sh 'echo $ARTIFACTORY_CREDENTIALS | docker login -uafgates@gmail.com andrewgates.jfrog.io --password-stdin'
         					echo 'Login to Artifcatory'
+        					}
+        stage('Push'){
+        			steps {
         					sh 'docker push andrewgates.jfrog.io/spring-petclinic-docker2'
         					echo  'Push Docker Image to Artificatory'
       						}
