@@ -5,6 +5,7 @@ pipeline {
     		}
     environment {
     			ARTIFACTORY_CREDENTIALS = credentials('artifactory')
+    			DOCKER_IMAGE_NAME = "andrewgates.jfrog.io/spring-petclinic-docker/spring-petclinic"
   				}
   stages {
   		stage('Test') {
@@ -21,20 +22,30 @@ pipeline {
     					}
     	stage('Build') {
       				steps {
-        					sh 'docker build -t andrewgates.jfrog.io/spring-petclinic-docker/spring-petclinic .'
+        					sh 'docker build -t "$DOCKER_IMAGE_NAME" .'
       						}
     					}
-		stage('Artifactory') {
+		stage('Login') {
       				steps {
         					sh 'echo $ARTIFACTORY_CREDENTIALS | docker login -uafgates@gmail.com andrewgates.jfrog.io --password-stdin'
         					
         					echo 'Login to Artifactory Hub'
       						}
     					}
-		stage('Push') {
+		stage('Scan') {
       				steps {
-        					sh 'docker tag andrewgates.jfrog.io/spring-petclinic-docker/spring-petclinic andrewgates.jfrog.io/spring-petclinic-docker/spring-petclinic:1.0.0'
-        					sh 'docker push andrewgates.jfrog.io/spring-petclinic-docker/spring-petclinic:1.0.0'
+        					dir(''){
+        					jf 'docker scan $DOCKER_IMAGE_NAME'
+        					       					
+        					//sh 'docker push andrewgates.jfrog.io/spring-petclinic-docker/spring-petclinic:1.0.0'
+        					echo  'Scan Docker Image'
+      						}
+    					}		
+    	stage('Push') {
+      				steps {
+        					sh 'docker tag "$DOCKER_IMAGE_NAME" "$DOCKER_IMAGE_NAME":1.0.0'
+        					
+        					//sh 'docker push andrewgates.jfrog.io/spring-petclinic-docker/spring-petclinic:1.0.0'
         					echo  'Push Docker Image to Artifactory'
       						}
     					}
