@@ -33,7 +33,7 @@ pipeline {
     					}
 		stage('Push') {
       				steps {
-        					sh 'docker tag andrewgates.jfrog.io/spring-petclinic-docker/spring-petclinic andrewgates.jfrog.io/spring-petclinic-docker/spring-petclinic:1.0.0
+        					//sh 'docker tag andrewgates.jfrog.io/spring-petclinic-docker/spring-petclinic andrewgates.jfrog.io/spring-petclinic-docker/spring-petclinic:1.0.0
         					sh 'docker push andrewgates.jfrog.io/spring-petclinic-docker/spring-petclinic:1.0.0'
         					echo  'Push Docker Image to Artifactory'
       						}
