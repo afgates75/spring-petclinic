@@ -26,7 +26,7 @@ pipeline {
 		stage('Artifactory') {
       				steps {
         					// sh 'echo $ARTIFACTORY_CREDENTIALS | docker login -u afgates75 --password-stdin'
-        					docker login -uafgates@gmail.com andrewgates.jfrog.io -p$ARTIFACTORY_CREDENTIALS
+        					sh 'echo $ARTIFACTORY_CREDENTIALS | docker login -uafgates@gmail.com andrewgates.jfrog.io --password-stdin'
         					echo 'Login to Artifcatory'
         					sh 'docker push andrewgates.jfrog.io/spring-petclinic-docker2'
         					echo  'Push Docker Image to Artificatory'
