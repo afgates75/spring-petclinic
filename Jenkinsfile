@@ -18,20 +18,21 @@ pipeline {
                         }
         stage('Test') {
       				steps {
-        					//sh(script: './mvnw --batch-mode -Dmaven.test.failure.ignore=true test')
+        					sh(script: './mvnw --batch-mode -Dmaven.test.failure.ignore=true test')
            					echo 'Running JUnit Tests'
       						}
    						}
    		stage('Package') {
       				steps {
        						 sh(script: './mvnw --batch-mode package -DskipTests')
-       						 echo 'Execute Maven Project'
+       						 echo 'Package Maven Project'
       						}
     					}
     	stage('Build') {
       				steps {
         					//jf 'docker build $DOCKER_IMAGE_NAME'
         					sh 'docker build -t "$DOCKER_IMAGE_NAME" .'
+        					echo 'Build Cocker Image'
       						}
     					}
 		stage('Scan and Push') {
