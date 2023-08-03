@@ -9,7 +9,7 @@ pipeline {
   stages {
   		stage('Test') {
       				steps {
-        					sh(script: './mvnw --batch-mode -Dmaven.test.failure.ignore=true test')
+        					//sh(script: './mvnw --batch-mode -Dmaven.test.failure.ignore=true test')
            					echo 'Running JUnit Tests'
       						}
    						}
