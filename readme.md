@@ -20,13 +20,19 @@ image base, then multiple images are used to build the most efficient docker ima
 cutting the size of the Tomcat and MySQL instances from 650 MB to 315 MB.
 
 The latest docker image is stored at andrewgates.jfrog.io
+
 The commands to pull down and use the image are as follows:
 
 docker login
+
 docker pull andrewgates.jfrog.io/spring-petclinic-docker-local/spring-petclinic:latest
+
 docker run -it -p 8080:8080 andrewgates.jfrog.io/spring-petclinic-docker/spring-petclinic
 
 To access the petclinic application:
+
 http://localhost:8080
+
 To pull some sample data via a REST API:
+
 curl --request GET --url http://localhost:8080/vets --header 'content-type: application/json'
