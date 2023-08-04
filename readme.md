@@ -22,8 +22,7 @@ cutting the size of the Tomcat and MySQL instances from 650 MB to 315 MB.
 The latest docker image is stored at andrewgates.jfrog.io
 The commands to pull down and use the image are as follows:
 
-docker login <JFrog repository>
-
+docker login
 docker pull andrewgates.jfrog.io/spring-petclinic-docker-local/spring-petclinic:latest
 docker run -it -p 8080:8080 andrewgates.jfrog.io/spring-petclinic-docker/spring-petclinic
 
