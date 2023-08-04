@@ -12,7 +12,7 @@ to checkout this repository. Then Jenkins will run JUnit tests against the code,
 to check and update all dependenceies, and create a docker image. Due to constraints of 
 using Mac OSX, a docker shell script is required for the build process, but the JFrog CLI 
 is used for all other tasks. JFrog CLI will log into Artifactory and the docker image 
-will be scannedby XRay. Finally,the docker image will be pushed to the Docker Repository 
+will be scanned by XRay. Finally,the docker image will be pushed to the Docker Repository 
 on JFrog and publishing information will be updated.
 
 Included also is a Dockerfile that is designed to use eclipse-temurin:17-jdk-jammy as an
@@ -23,6 +23,7 @@ The latest docker image is stored at andrewgates.jfrog.io
 The commands to pull down and use the image are as follows:
 
 docker login <JFrog repository>
+
 docker pull andrewgates.jfrog.io/spring-petclinic-docker-local/spring-petclinic:latest
 docker run -it -p 8080:8080 andrewgates.jfrog.io/spring-petclinic-docker/spring-petclinic
 
