@@ -18,13 +18,13 @@ pipeline {
                         }
         stage('Test') {
       				steps {
-        					sh(script: './mvnw --batch-mode -Dmaven.test.failure.ignore=true test')
+           					sh(script: './mvnw --batch-mode -s settings.xml -Dmaven.test.failure.ignore=true test')
            					echo 'Running JUnit Tests'
       						}
    						}
    		stage('Package') {
       				steps {
-       						 sh(script: './mvnw --batch-mode package -DskipTests')
+       						 sh(script: './mvnw --batch-mode -s settings.xml package -DskipTests ')
        						 echo 'Package Maven Project'
       						}
     					}
@@ -32,7 +32,7 @@ pipeline {
       				steps {
         					//jf 'docker build $DOCKER_IMAGE_NAME'
         					sh 'docker build -t "$DOCKER_IMAGE_NAME" .'
-        					echo 'Build Cocker Image'
+        					echo 'Build Docker Image'
       						}
     					}
 		stage('Scan and Push') {
@@ -41,7 +41,7 @@ pipeline {
         					sh 'echo $ARTIFACTORY_CREDENTIALS | docker login -uafgates@gmail.com andrewgates.jfrog.io --password-stdin'
         					echo 'Login to Artifactory Hub'
         					
-        					//jf 'docker scan $DOCKER_IMAGE_NAME'
+        					jf 'docker scan $DOCKER_IMAGE_NAME'
         					jf 'docker push $DOCKER_IMAGE_NAME'   					
 
         					echo  'Scan and push Docker Image'
