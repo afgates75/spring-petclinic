@@ -23,7 +23,7 @@ The latest docker image is stored at andrewgates.jfrog.io
 
 The commands to pull down and use the image are as follows:
 
-docker login //Login to the jfrog.io repository
+docker login -uafgates@gmail.com andrewgates.jfrog.io //Login to the jfrog.io repository
 
 docker pull andrewgates.jfrog.io/spring-petclinic-docker-local/spring-petclinic:latest
 
